@@ -57,12 +57,16 @@ namespace assignment5
 
             app.UseEndpoints(endpoints =>
             {
+                //allows using to type P1 or P2 or so at the end of the link to change the page
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    "pagination",
+                    "P{page}",
+                    new { Controller = "Home", action = "Index" });
+
+                endpoints.MapDefaultControllerRoute();
             });
 
-            SeedData.EnsurePopulated(app);
+            SeedData.EnsurePopulated(app); 
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace assignment5.Models
 {
+    //Book class that will be in our DB - all are required
     public class Books
     {
         [Key]
@@ -34,5 +35,8 @@ namespace assignment5.Models
 
         [Required]
         public double Price { get; set; }
+
+        [Required]
+        public double NumberOfPages { get; set; }
     }
 }
