@@ -57,26 +57,7 @@ namespace assignment5
 
             app.UseEndpoints(endpoints =>
             {
-
-                //endpoints.MapControllerRoute(
-                //    "category",
-                //    "{category}",
-                //    new { Controller = "Home", action = "Index", page=1 });
-
-                
-
-                //endpoints.MapControllerRoute(
-                //    "page",
-                //    "{page:int}",
-                //    new { Controller = "Home", action = "Index" });
-
-                ////allows using to type P1 or P2 or so at the end of the link to change the page
-                //endpoints.MapControllerRoute(
-                //    "pagination",
-                //    "P{page}",
-                //    new { Controller = "Home", action = "Index" });
-
-
+                //makes 4 more user friendly urls using the page number and/or the category
                 endpoints.MapControllerRoute("catpage",
                     "{category}/{page:int}",
                     new { Controller = "Home", action = "Index" });

@@ -3,6 +3,7 @@ using System.Linq;
 using assignment5.Models;
 using Microsoft.AspNetCore.Mvc;
 
+//class to display the naviation menu, and it goes to the db and gets the current categories
 namespace assignment5.Components
 {
     public class NavigationMenuViewComponent : ViewComponent
