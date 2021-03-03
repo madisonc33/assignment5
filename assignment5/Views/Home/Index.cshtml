@@ -3,27 +3,11 @@
 }
 
 @model assignment5.Models.ViewModels.BookListViewModel
-
-<div class="text-center display-3">
-    <h1 class="display-4">Favorite Books</h1>
-    <h6 class="text-muted">According to Spencer Hilton</h6>
-</div>
-<div class="card-deck">
+<div>
     @foreach (var x in Model.Books)
     {
-        <div class="card bg-light border-dark text-center" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@x.Title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@x.AuthorFirst @x.AuthorMiddle @x.AuthorLast</h6>
-                <p class="card-text">@x.Publisher</p>
-                <p class="card-text">#@x.ISBN</p>
-                <p class="card-text">@x.Classification</p>
-                <p class="card-text">@x.Category</p>
-                <p class="card-text">@x.NumberOfPages pgs</p>
-                <p class="card-footer">$@x.Price</p>
-            </div>
-        </div>
-    }
+        <partial name="BookSummary" model="x" />
+    } 
 </div>
 
-<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" class="btn-group pull-right m-1"></div>
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory" class="btn-group pull-right m-1"></div>

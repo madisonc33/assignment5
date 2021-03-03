@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc;
 using assignment5.Models.ViewModels;
 using assignment5.Models;
+using System.Collections.Generic;
 
 //dynamically builds the actual html that shows up on the bottom of the homepage by creating html elements and attributes
 namespace assignment5.Infrastructure
@@ -28,6 +29,9 @@ namespace assignment5.Infrastructure
 
         public string PageAction { get; set; }
 
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
         public bool PageClassesEnabled { get; set; }
 
         public string PageClass { get; set; }
@@ -45,7 +49,9 @@ namespace assignment5.Infrastructure
             for (int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
-                tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+
+                PageUrlValues["page"] = i;
+                tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
 
                 if(PageClassesEnabled)
                 {

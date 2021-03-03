@@ -1,5 +1,5 @@
 ﻿using System;
-namespace assignment5.Models
+namespace assignment5.Models.ViewModels
 {
     //this class is used to dynamically show the pages bar at the bottom of the page
     public class PagingInfo

@@ -16,7 +16,7 @@ namespace assignment5.Controllers
 
         private IBooksRepository _repository;
 
-        public int PageSize = 5;
+        public int PageSize = 4;
 
         public HomeController(ILogger<HomeController> logger, IBooksRepository repository)
         {
@@ -24,13 +24,14 @@ namespace assignment5.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(string category, int page= 1)
         {
             //this builds dynamically how the items from the db will be groups and shown (grouped by Page size variable above)
             return View(new BookListViewModel
             {
                 //basically the same as SQL to get info from the DB
                 Books = _repository.Books
+                    .Where(b => category == null || b.Category == category)
                     .OrderBy(p => p.BookId)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
@@ -38,8 +39,9 @@ namespace assignment5.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalNumItems = _repository.Books.Count()
-                }
+                    TotalNumItems = category == null ? _repository.Books.Count() : _repository.Books.Where(x => x.Category == category).Count()
+                },
+                CurrentCategory = category
             });
         }
 

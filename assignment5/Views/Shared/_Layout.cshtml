@@ -9,10 +9,16 @@
     <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-   
+    <div class="row m-1 p-1">
+        <div class="text-center display-3 col-3">
+            <h1 class="display-4">Favorite Books</h1>
+            <h6 class="text-muted">According to Spencer Hilton</h6>
+            <vc:navigation-menu />
+        </div>
+        <div class="col-9 mb-3">
             @RenderBody()
-
-
+        </div>
+    </div>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2021 - Best Books <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
