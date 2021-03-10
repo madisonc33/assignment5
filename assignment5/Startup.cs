@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace assignment5
 {
@@ -29,10 +30,21 @@ namespace assignment5
 
             services.AddDbContext<BooksDBContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:BooksConnection"]);
+                options.UseSqlite(Configuration["ConnectionStrings:BooksConnection"]);
             });
 
             services.AddScoped<IBooksRepository, EFBooksRepository>();
+
+            //allows us to user razor pages
+            services.AddRazorPages();
+
+            //allows to save things in a session
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
+            //added in with chapter 9 to make it so we can remove items and save them in session
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +63,8 @@ namespace assignment5
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -59,11 +73,11 @@ namespace assignment5
             {
                 //makes 4 more user friendly urls using the page number and/or the category
                 endpoints.MapControllerRoute("catpage",
-                    "{category}/{page:int}",
+                    "{category}/{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
 
                 endpoints.MapControllerRoute("page",
-                    "{page:int}",
+                    "{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
 
                 endpoints.MapControllerRoute("category",
@@ -72,11 +86,15 @@ namespace assignment5
 
                 endpoints.MapControllerRoute(
                     "pagination",
-                    "Books/{page}",
+                    "Books/{pageNum}",
                     new { Controller = "Home", action = "Index" });
 
                 endpoints.MapDefaultControllerRoute();
+
+                //makes it so we can access razor pages
+                endpoints.MapRazorPages();
             });
+
 
             SeedData.EnsurePopulated(app); 
         }

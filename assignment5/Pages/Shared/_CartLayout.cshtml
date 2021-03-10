@@ -1,4 +1,5 @@
-﻿ <!DOCTYPE html>
+﻿@*base layout for our cart page*@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,28 +8,17 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="bg-dark text-white p-2">
         <div class="container-fluid">
             <div class="row">
                 <div class="col navbar-brand">BOOKS</div>
-                <div class="col-6 text-right">
-                    <vc:cart-summary />
-                </div>
             </div>
         </div>
     </div>
-    <div class="row m-1 p-1">
-        <div class="text-center display-3 col-3">
-            <h1 class="display-4">Favorite Books</h1>
-            <h6 class="text-muted">According to Spencer Hilton</h6>
-            <vc:navigation-menu />
-        </div>
-        <div class="col-9 mb-3">
-            @RenderBody()
-        </div>
+    <div>
+        @RenderBody()
     </div>
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -41,3 +31,4 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
